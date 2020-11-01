@@ -41,6 +41,19 @@ public class Statistics {
         ArrayList<Player> topScorers = new ArrayList<Player>();
         Iterator<Player> playerIterator = players.iterator();
         
+        /*
+        Testit feilaa tämän kohdalla. Ei ihan selvää, pitikö korjata, mutta 
+        näihän tällainen varmaan menis oikein?
+        Ensinnä alkuun varmaan pitää olla joku tällanen:
+        */
+        
+//        if (howMany > players.size()) {
+//            return players;
+//        }
+        
+        // Ja lisäksi tähän kohtaan:
+        
+//        while (howMany > 0) {
         while (howMany>=0) {
             topScorers.add( playerIterator.next() );            
             howMany--;
