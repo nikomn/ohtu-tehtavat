@@ -44,17 +44,19 @@ public class Statistics {
         /*
         Testit feilaa tämän kohdalla. Ei ihan selvää, pitikö korjata, mutta 
         näihän tällainen varmaan menis oikein?
-        Ensinnä alkuun varmaan pitää olla joku tällanen:
+        
+        1. Jos howMany on suurempi kuin pelaajalistan koko, niin ei toimi.
+        (Sama lopputulos myös jos howMany >= players.size())
         */
         
-//        if (howMany > players.size()) {
-//            return players;
-//        }
+        if (howMany > players.size()) {
+            return players;
+        }
         
-        // Ja lisäksi tähän kohtaan:
+        // 2. Palautuu aina yksi enemmän, kuin howMany, jos käytetään ">="
         
-//        while (howMany > 0) {
-        while (howMany>=0) {
+        while (howMany > 0) {
+//        while (howMany>=0) {
             topScorers.add( playerIterator.next() );            
             howMany--;
         }
