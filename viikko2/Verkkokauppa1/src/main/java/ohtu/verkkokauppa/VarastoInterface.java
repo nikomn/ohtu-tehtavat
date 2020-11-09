@@ -5,10 +5,13 @@
  */
 package ohtu.verkkokauppa;
 
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author nikoniem
  */
+@Component
 public interface VarastoInterface {
 
     Tuote haeTuote(int id);
