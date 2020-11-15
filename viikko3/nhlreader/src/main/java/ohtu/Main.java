@@ -2,6 +2,8 @@ package ohtu;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import org.apache.http.client.fluent.Request;
 
@@ -16,6 +18,9 @@ public class Main {
 
         Gson mapper = new Gson();
         Player[] players = mapper.fromJson(bodyText, Player[].class);
+        
+        Arrays.sort(players);
+        
         
         Date nyt = new Date();
         

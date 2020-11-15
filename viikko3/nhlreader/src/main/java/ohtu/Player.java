@@ -1,12 +1,11 @@
-
 package ohtu;
 
-public class Player {
-    
+public class Player implements Comparable<Player> {
+
     /*
     {"name":"CJ Suess","nationality":"USA","assists":0,"goals":0,
     "penalties":0,"team":"WPG","games":1}
-    */
+     */
     private String name;
     private String nationality;
     private Integer assists;
@@ -73,7 +72,19 @@ public class Player {
 
     @Override
     public String toString() {
-        return name + " team " + team + " goals " + goals + " assists " + assists;
+        // Markus Nutivaara
+        // Mikael Granlund
+        if (name.length() > 15) {
+            return name + "\t" + team + "\t" + goals + " + " + assists + " = " + (goals + assists);
+        } else {
+            return name + "\t\t" + team + "\t" + goals + " + " + assists + " = " + (goals + assists);
+        }
+
     }
-      
+
+    @Override
+    public int compareTo(Player player) {
+        return (player.getAssists() + player.getGoals()) - (this.goals + this.assists);
+    }
+
 }
