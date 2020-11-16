@@ -24,6 +24,57 @@ public class Stepdefs {
         element.click();
     }
 
+    @Given("command new user is selected")
+    public void newUserIsSelected() {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+    }
+
+    @When("valid username {string} and password {string} and matching password confirmation are entered")
+    public void validUsernameAndPasswordAndMatchingPasswordConfirmationAreEntered(String username, String password) {
+        createUserWith(username, password, password);
+    }
+
+    @Then("a new user is created")
+    public void aNewUserIsCreated() {
+        pageHasContent("Welcome to Ohtu Application!");
+    }
+
+    @When("invalid username {string} and password {string} and matching password confirmation are entered")
+    public void invalidUsernameAndPasswordAndMatchingPasswordConfirmationAreEntered(String username, String password) {
+        createUserWith(username, password, password);
+    }
+
+    @Then("user is not created and error \"username should have at least 3 characters\" is reported")
+    public void userIsNotCreatedAndTooShortUsernameErrorIsReported() {
+        pageHasContent("username should have at least 3 characters");
+        pageHasContent("Create username and give password");
+    }
+
+    @When("username {string} and password {string} and matching password confirmation are entered")
+    public void usernameAndPasswordAndMatchingPasswordConfirmationAreEntered(String username, String password) {
+        createUserWith(username, password, password);
+    }
+
+    @Then("user is not created and error \"password should have at least 8 characters\" is reported")
+    public void userIsNotCreatedTooShortPasswordErrorIsReported() {
+        pageHasContent("password should have at least 8 characters");
+        pageHasContent("Create username and give password");
+    }
+
+    @When("username {string} and password {string} and non matching password confirmation are entered")
+    public void usernameAndPasswordAndNonMatchingPasswordConfirmationAreEntered(String username, String password) {
+        createUserWith(username, password, "wrong!");
+    }
+
+    @Then("user is not created and error \"password and password confirmation do not match\" is reported")
+    public void userIsNotCreatedAndPasswordConfirmationErrorIsReported() {
+        pageHasContent("password and password confirmation do not match");
+        pageHasContent("Create username and give password");
+        
+    }
+
     @When("correct username {string} and password {string} are given")
     public void correctUsernameAndPasswordAreGiven(String username, String password) {
         logInWith(username, password);
@@ -67,7 +118,7 @@ public class Stepdefs {
 
     /* helper methods */
     private void pageHasContent(String content) {
-        assertTrue(driver.getPageSource().contains(content));
+        assertTrue(driver.getPageSource(), driver.getPageSource().contains(content));
     }
 
     private void logInWith(String username, String password) {
@@ -78,5 +129,18 @@ public class Stepdefs {
         element.sendKeys(password);
         element = driver.findElement(By.name("login"));
         element.submit();
+    }
+    
+    private void createUserWith(String username, String password, String confirmation) {
+        pageHasContent("Create username and give password");
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(confirmation);
+        element = driver.findElement(By.name("signup"));
+        element.submit();
+
     }
 }

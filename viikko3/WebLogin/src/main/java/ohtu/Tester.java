@@ -7,6 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Tester {
+    
+    
+    
 
     private static void testRightUsernameWrongPassword(WebDriver driver) {
         driver.get("http://localhost:4567");
@@ -44,9 +47,9 @@ public class Tester {
         element = driver.findElement(By.name("username"));
         element.sendKeys("testi" + r.nextInt(100000));
         element = driver.findElement(By.name("password"));
-        element.sendKeys("itset");
+        element.sendKeys("salainen1");
         element = driver.findElement(By.name("passwordConfirmation"));
-        element.sendKeys("itset");
+        element.sendKeys("salainen1");
         sleep(2);
         element.submit();
 
