@@ -10,6 +10,8 @@ Ohjelmistotuotanto 2020 -kurssin tehtävien palautukset
 
 [Viikon 4 tehtävät](https://github.com/nikomn/ohtu-tehtavat/tree/main/viikko4)
 
+[Viikon 5 tehtävät](https://github.com/nikomn/ohtu-tehtavat/tree/main/viikko5)
+
 ## Miniprojekti
 
 [Lukuvinkkikirjasto-Napsa](https://github.com/VirtualAkseli/Lukuvinkkikirjasto-Napsa)
