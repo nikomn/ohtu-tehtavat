@@ -24,67 +24,88 @@ public class QueryBuilder {
     Matcher matcher;
     private ArrayList<Matcher> matchers;
     private int index;
+    private String andOr;
+    private ArrayList<Matcher> orMatchers;
+    private Matcher[] andMatch;
+    private Matcher[] orMatch;
+    private Or orr;
+    private boolean AND;
 
     public QueryBuilder() {
-        //matcher = new And(matchers);
-        this.index = 0;
         this.matchers = new ArrayList<>();
+        this.andOr = "and";
+        this.AND = true; 
+
     }
 
     public Matcher build() {
         if (this.matchers.isEmpty()) {
             return new All();
         } else {
-            Matcher[] m = new Matcher[this.index];
-            for (int i = 0; i < this.index; i++) {
+
+            Matcher[] m = new Matcher[this.matchers.size()];
+            for (int i = 0; i < this.matchers.size(); i++) {
                 m[i] = this.matchers.get(i);
-                
             }
-            return new And(m);
+            
+            System.out.println("AND? " + this.AND);
+            if (this.AND) {
+                return new Or(m);
+            } else {
+                return new And(m);
+            }
+            
+            
+//            System.out.println("this.andOr: " + this.andOr);
+//            if (this.andOr.equals("or")) {
+//                return new Or(m);
+//            } else {
+//                return new And(m);
+//            }
+
+            
+
         }
-        
 
     }
-    
+
+    public QueryBuilder oneOf(Matcher... m) {
+        System.out.println("this.andOr: " + this.andOr);
+        this.andOr = "or";
+        this.AND = false;
+        this.matchers.clear();
+        this.matchers.add(new Or(m));
+        System.out.println("this.andOr: " + this.andOr);
+//        for (Matcher mat : m) {
+//            this.matchers.add(new Or(mat));
+//        }
+        return this;
+
+    }
+
     public QueryBuilder hasAtLeast(int value, String category) {
         this.matchers.add(new HasAtLeast(value, category));
-        this.index++;
         return this;
 
     }
-    
+
     public QueryBuilder hasFewerThan(int value, String category) {
         this.matchers.add(new HasFewerThan(value, category));
-        this.index++;
         return this;
 
     }
-    
+
     public QueryBuilder playsIn(String team) {
         this.matchers.add(new PlaysIn(team));
-        this.index++;
-        return this;
-        
-    }
-    
-    public QueryBuilder and(Matcher... matchers) {
-        this.matcher = new And(matchers);
         return this;
 
     }
-    
-    public QueryBuilder not(Matcher... matchers) {
-        this.matcher = new Not(matchers);
-        return this;
-        
-    }
-    
-    public QueryBuilder or(Matcher... matchers) {
-        this.matcher = new Or(matchers);
-        return this;
-        
-    }
 
-    
+
+    public QueryBuilder or(Matcher... m) {
+        this.orMatchers.add(new Or(m));
+        return this;
+
+    }
 
 }

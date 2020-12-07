@@ -11,12 +11,22 @@ public class Main {
 
         QueryBuilder query = new QueryBuilder();
         //Matcher m = query.build();
-        //Matcher m = query.playsIn("NYR").build();
+        Matcher m1 = query.playsIn("EDM").build();
+        Matcher m2 = query.playsIn("PHI").build();
+//        Matcher m = query.oneOf(m1, m2).build();
+
+//        Matcher m = query.playsIn("NYR")
+//                     .hasAtLeast(5, "goals")
+//                     .hasFewerThan(10, "goals").build();
         
-        Matcher m = query.playsIn("NYR")
-                     .hasAtLeast(5, "goals")
-                     .hasFewerThan(10, "goals").build();
- 
+//        Matcher m1 = query.playsIn("PHI")
+//                .hasAtLeast(10, "assists")
+//                .hasFewerThan(5, "goals").build();
+//
+//        Matcher m2 = query.playsIn("EDM")
+//                .hasAtLeast(40, "points").build();
+
+        Matcher m = query.oneOf(m1, m2).build();
 
         for (Player player : stats.matches(m)) {
             System.out.println(player);
@@ -49,7 +59,6 @@ public class Main {
 //        for (Player player : stats.matches(m)) {
 //            System.out.println(player);
 //        }
-
         //System.out.println(stats.matches(new All()).size());
     }
 }
