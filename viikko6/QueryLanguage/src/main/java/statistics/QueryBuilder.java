@@ -34,7 +34,8 @@ public class QueryBuilder {
     public QueryBuilder() {
         this.matchers = new ArrayList<>();
         this.andOr = "and";
-        this.AND = true; 
+        this.AND = true;
+        this.orMatchers = new ArrayList<>();
 
     }
 
@@ -46,39 +47,39 @@ public class QueryBuilder {
             Matcher[] m = new Matcher[this.matchers.size()];
             for (int i = 0; i < this.matchers.size(); i++) {
                 m[i] = this.matchers.get(i);
+                //System.out.println("this.matchers.get(" + i + "): " + this.matchers.get(i));
             }
-            
-            System.out.println("AND? " + this.AND);
-            if (this.AND) {
-                return new Or(m);
-            } else {
-                return new And(m);
-            }
-            
-            
-//            System.out.println("this.andOr: " + this.andOr);
-//            if (this.andOr.equals("or")) {
-//                return new Or(m);
-//            } else {
-//                return new And(m);
-//            }
 
+            this.matchers.clear();
             
+            //System.out.println("AND? " + this.AND);
+            if (this.AND) {
+                Matcher matchAnd = new And(m);
+                //System.out.println("And");
+                return matchAnd;
+            } else {
+                //System.out.println("Or");
+                //System.out.println("Tulostuu, mutta ei tulostu?");
+                Matcher matchOr = new Or(m);
+                return matchOr;
+            }
+
 
         }
 
     }
 
     public QueryBuilder oneOf(Matcher... m) {
-        System.out.println("this.andOr: " + this.andOr);
-        this.andOr = "or";
+        //System.out.println("One of");
+
         this.AND = false;
+        //System.out.println(this.AND);
+
         this.matchers.clear();
-        this.matchers.add(new Or(m));
-        System.out.println("this.andOr: " + this.andOr);
-//        for (Matcher mat : m) {
-//            this.matchers.add(new Or(mat));
-//        }
+        for (int i = 0; i < m.length; i++) {
+            this.matchers.add(m[i]);
+        }
+
         return this;
 
     }
@@ -100,7 +101,6 @@ public class QueryBuilder {
         return this;
 
     }
-
 
     public QueryBuilder or(Matcher... m) {
         this.orMatchers.add(new Or(m));

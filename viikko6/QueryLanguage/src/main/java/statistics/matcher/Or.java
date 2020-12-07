@@ -20,4 +20,9 @@ public class Or implements Matcher {
         return false;
     }
     
+    @Override
+    public String toString() {
+        return "" + matchers;
+    }
+    
 }
