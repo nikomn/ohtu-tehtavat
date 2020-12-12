@@ -110,5 +110,6 @@ Ohjelmistotuotanto 2020 -kurssin tehtävien palautukset
    - 6+5+3+1+2 = 17 versionhallintatehtävää
    - 10+7+11+6+3+5+4 = 46 normaalia tehtävää
 - Tehtynä:
+   - yht. 60/63 tehtävää = n. 95%
    - 17/17 versionhallintatehtävää = 100%
    - 43/46 normaalia tehtävää = n. 93%
